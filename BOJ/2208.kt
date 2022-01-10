@@ -40,6 +40,9 @@ fun main() {
     for (idx in M .. N) {
         answer = max (answer, max(arr[idx].sum, arr[idx].sum - arr[idx-M].min))
     }
+    arr.forEach {
+        println(it)
+    }
     io.write(answer.toString())
     io.close()
 }
