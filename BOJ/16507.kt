@@ -4,28 +4,21 @@ fun main() {
 
     val (R, C, Q) = br.readLine().split(" ").map { it.toInt() }
 
-    val cumGraph = Array(R) { Array(C) { -1L } }
-
-    (0 until R).forEach { row ->
+    val cumGraph = Array(R + 1) { Array(C + 1) { 0L } }
+    (1..R).forEach { row ->
         br.readLine().split(" ").map { it.toLong() }.also { rows ->
             rows.forEachIndexed { col, value ->
-                cumGraph[row][col] = if (col == 0) value else value + cumGraph[row][col - 1]
+                cumGraph[row][col + 1] = value + cumGraph[row][col]
+            }
+            (1..C).forEach { tmpCol ->
+                cumGraph[row][tmpCol] += cumGraph[row-1][tmpCol]
             }
         }
     }
 
     repeat(Q) {
-        val (r1, c1, r2, c2) = br.readLine().split(" ").map { it.toInt() - 1 }
-        val count = (r2 - r1 + 1) * (c2 - c1 + 1)
-        var total = 0L
-        (r1..r2).forEach { row ->
-            total += if (c1 == 0) {
-                cumGraph[row][c2]
-            } else {
-                cumGraph[row][c2] - cumGraph[row][c1 - 1]
-            }
-        }
-        bw.write("${total / count}\n")
+        val (r1, c1, r2, c2) = br.readLine().split(" ").map { it.toInt() }
+        bw.write("${(cumGraph[r2][c2] - cumGraph[r2][c1 -1] - cumGraph[r1 -1][c2] + cumGraph[r1 -1][c1 - 1]) / ((r2 - r1 + 1) * (c2 - c1 + 1))}\n")
     }
     bw.close()
 
