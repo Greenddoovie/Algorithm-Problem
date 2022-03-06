@@ -1,4 +1,6 @@
-import java.lang.Math.hypot
+package `Algorithm-Problem`.BOJ
+
+import kotlin.math.hypot
 import java.util.*
 
 class IO1774 {
@@ -26,7 +28,7 @@ fun main() {
     fun getDistance(p1: List<Int>, p2: List<Int>): Double {
         val (x1, y1) = p1
         val (x2, y2) = p2
-        return hypot((x1-x2).toDouble(), (y1-y2).toDouble())
+        return hypot((x1 - x2).toDouble(), (y1 - y2).toDouble())
     }
 
     for (i in 0 until N) {
